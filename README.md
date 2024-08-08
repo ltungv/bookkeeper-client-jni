@@ -1,6 +1,6 @@
 # How-tos
 
-`libjvm` is dynamically link so remember to set `LD_LIBRARY_PATH=/usr/lib/jvm/default-runtime/lib:/usr/lib/jvm/default-runtime/lib/server`
+`libjvm` is dynamically link so remember to set `LD_LIBRARY_PATH=$JAVA_HOME/lib:$JAVA_HOME/lib/server`
 
 Do the following steps to get it working (only Linux is supported):
 1. Create two new directories in the project's root - `build` and `vendor`
