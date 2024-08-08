@@ -1,0 +1,10 @@
+.cache/
+.idea/
+.vscode/
+build/
+CMakeFiles/
+target/
+vendor/
+
+CMakeCache.txt
+*.log
