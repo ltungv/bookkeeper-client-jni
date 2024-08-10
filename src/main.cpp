@@ -73,7 +73,7 @@ public:
     }
   }
 
-  jlong append(const char *const payload_content, int payload_length) {
+  long append(const char *const payload_content, int payload_length) {
     jni::LocalArray<jbyte> payload{payload_length};
     {
       jni::ArrayView<jbyte> pinned = payload.Pin();
