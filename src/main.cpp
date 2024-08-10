@@ -58,12 +58,13 @@ void throw_jvm_exception(JNIEnv *env) {
 }
 
 class LedgerHandle {
-private:
+  friend class BookKeeper;
+
   jni::GlobalObject<jclassLedgerHandle> instance;
 
-public:
-  LedgerHandle(jni::GlobalObject<jclassLedgerHandle> &instance) : instance{std::move(instance)} {}
+  LedgerHandle(jni::GlobalObject<jclassLedgerHandle> instance) : instance{std::move(instance)} {}
 
+public:
   ~LedgerHandle() {
     try {
       close();
@@ -90,7 +91,6 @@ public:
 };
 
 class BookKeeper {
-private:
   jni::GlobalObject<jclassBookKeeper> instance;
 
 public:
@@ -115,7 +115,7 @@ public:
     }
     jni::GlobalObject<jclassLedgerHandle> ledger_handle = instance("createLedger", jint{ensemble_size}, jint{quorum_size}, digest_type, digest_password);
     throw_jvm_exception(jni::JniEnv::GetEnv());
-    return LedgerHandle(ledger_handle);
+    return LedgerHandle(std::move(ledger_handle));
   }
 
   void close() {
