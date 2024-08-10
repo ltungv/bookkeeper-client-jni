@@ -45,7 +45,7 @@ static constexpr jni::Class jclassBookKeeper{
     jni::Method{"close", jni::Return{}},
 };
 
-void throw_jvm_exception(JNIEnv *env) {
+void check_java_exception(JNIEnv *env) {
   jobject jvm_throwable = env->ExceptionOccurred();
   if (jvm_throwable != nullptr) {
     env->ExceptionClear();
@@ -80,13 +80,13 @@ public:
       memcpy(pinned.ptr(), payload_content, payload_length);
     }
     jlong entry_id = instance("append", payload);
-    throw_jvm_exception(jni::JniEnv::GetEnv());
+    check_java_exception(jni::JniEnv::GetEnv());
     return entry_id;
   }
 
   void close() {
     instance("close");
-    throw_jvm_exception(jni::JniEnv::GetEnv());
+    check_java_exception(jni::JniEnv::GetEnv());
   }
 };
 
@@ -96,7 +96,7 @@ class BookKeeper {
 public:
   BookKeeper(jni::GlobalObject<jclassClientConfiguration> &client_configuration)
       : instance{jni::GlobalObject<jclassBookKeeper>{client_configuration}} {
-    throw_jvm_exception(jni::JniEnv::GetEnv());
+    check_java_exception(jni::JniEnv::GetEnv());
   }
 
   ~BookKeeper() {
@@ -114,13 +114,13 @@ public:
       memcpy(pinned.ptr(), digest_password_content, digest_password_length);
     }
     jni::GlobalObject<jclassLedgerHandle> ledger_handle = instance("createLedger", jint{ensemble_size}, jint{quorum_size}, digest_type, digest_password);
-    throw_jvm_exception(jni::JniEnv::GetEnv());
+    check_java_exception(jni::JniEnv::GetEnv());
     return LedgerHandle(std::move(ledger_handle));
   }
 
   void close() {
     instance("close");
-    throw_jvm_exception(jni::JniEnv::GetEnv());
+    check_java_exception(jni::JniEnv::GetEnv());
   }
 };
 
