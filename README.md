@@ -12,6 +12,8 @@ Do the following steps to get it working (only Linux is supported):
 
 + JNI specification:
     + https://docs.oracle.com/en/java/javase/17/docs/specs/jni/
+- JNI binding:
+    + https://github.com/google/jni-bind
 + Managing object life-cycle:
     + https://stackoverflow.com/questions/9098890/how-to-check-for-memory-leaks-in-jni
     + https://stackoverflow.com/questions/42310107/what-are-the-rules-for-jni-local-references-returned-to-a-program-that-embeds-a
