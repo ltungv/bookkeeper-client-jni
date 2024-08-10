@@ -151,7 +151,6 @@ void run(JavaVM *jvm) {
 
   BookKeeper bookkeeper_client = BookKeeper(client_configuration);
 
-  jni::LocalArray<jbyte> digest_password{0};
   jni::GlobalObject<jclassDigestType> digest_type = jni::StaticRef<jclassDigestType>{}["DUMMY"].Get();
   LedgerHandle ledger_handle = bookkeeper_client.createLedger(3, 3, digest_type, "", 0);
 
