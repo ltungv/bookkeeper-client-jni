@@ -2,7 +2,7 @@
 
 `libjvm` is dynamically link so remember to set `LD_LIBRARY_PATH=$JAVA_HOME/lib:$JAVA_HOME/lib/server`
 
-Do the following steps to get it working (only Linux is supported):
+Do the following steps to get it working:
 1. Run `mkdir vendor && mvn prepare-package` to get all Java dependencies into `vendor`
 2. Run `mkdir build && cd build && cmake .. && make` to build the executable
 3. Run `cd ..` to change directory to the project's root (classpath is hardcoded)
